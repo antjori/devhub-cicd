@@ -1,0 +1,7 @@
+server.port=5100
+
+# API configurations
+
+# Spotify
+oac.spotify.cliend.id=<id>
+oac.spotify.cliend.secret=<secret>
