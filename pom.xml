@@ -27,6 +27,9 @@
 
         <!-- plug-in versions -->
         <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
+
+        <!-- dependency versions -->
+        <springfox.version>2.9.2</springfox.version>
     </properties>
 
     <inceptionYear>2018</inceptionYear>
@@ -52,9 +55,31 @@
     </build>
 
     <dependencies>
+        <!-- spring -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <!-- swagger -->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>${springfox.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>${springfox.version}</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 </project>

@@ -1,0 +1,36 @@
+spring:
+  application:
+    name: open-api-collector
+
+server:
+  port: 5100
+
+# Actuator
+security:
+  basic:
+    enabled: true
+  user:
+    name: <myUserName>
+    password: <myPassword>
+
+management:
+  contextPath: /admin
+  port: 5101
+  security:
+    enabled: true
+
+# Swagger
+springfox:
+  documentation:
+    swagger:
+      v2:
+        path: /docs/api
+        
+# APIs
+
+# Spotify
+oac:
+  spotify:
+    credentials:
+      cliendId: <myClientId>
+      clientSecret: <myClientSecret>
