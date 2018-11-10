@@ -34,3 +34,10 @@ oac:
     credentials:
       cliendId: <myClientId>
       clientSecret: <myClientSecret>
+    urls:
+      tokenUrl:
+        type: POST
+        url: https://accounts.spotify.com/api/token
+      searchUrl:
+        type: GET
+        url: https://api.spotify.com/v1/search

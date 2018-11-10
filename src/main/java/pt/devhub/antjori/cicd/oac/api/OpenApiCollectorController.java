@@ -1,5 +1,6 @@
 package pt.devhub.antjori.cicd.oac.api;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import pt.devhub.antjori.cicd.oac.service.spotify.SpotifyService;
 
 /**
  * REST controller for the Open API Collector.
@@ -17,6 +19,9 @@ import io.swagger.annotations.ApiResponses;
 @RestController
 @RequestMapping(value = "/oac")
 public class OpenApiCollectorController {
+
+    @Autowired
+    SpotifyService spotifyService;
 
     /**
      * Retrieves a simple string saying Spotify.

@@ -56,6 +56,11 @@
     </build>
 
     <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
         <!-- spring -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
