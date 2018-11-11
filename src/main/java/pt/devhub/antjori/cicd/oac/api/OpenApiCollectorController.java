@@ -1,7 +1,6 @@
 package pt.devhub.antjori.cicd.oac.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +20,7 @@ import pt.devhub.antjori.cicd.oac.service.spotify.SpotifyService;
 public class OpenApiCollectorController {
 
     @Autowired
-    SpotifyService spotifyService;
+    private SpotifyService spotifyService;
 
     /**
      * Retrieves a simple string saying Spotify.
@@ -32,7 +31,7 @@ public class OpenApiCollectorController {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successfully called Spotify's API", response = String.class) })
     @RequestMapping(value = "/api/spotify", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<String> getSpotify() {
-        return new ResponseEntity<>("Spotify", HttpStatus.OK);
+    public ResponseEntity<String> searchSpotify() {
+        return spotifyService.search();
     }
 }
