@@ -16,6 +16,7 @@ import org.springframework.web.client.RestTemplate;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import pt.devhub.antjori.cicd.oac.config.SpotifyConfig;
+import pt.devhub.antjori.cicd.oac.util.WebAPIConstants;
 
 /**
  * The service that allows the communication with Spotify Web API.
@@ -45,16 +46,16 @@ public class SpotifyService {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 
+        MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
+        map.add(WebAPIConstants.GRANT_TYPE, WebAPIConstants.CLIENT_CREDENTIALS);
+
+        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(map, headers);
+
         RestTemplate restTemplate = new RestTemplate();
 
         restTemplate.getInterceptors().add(new BasicAuthorizationInterceptor(
                 new String(Base64.decodeBase64(spotifyConfig.getCredentials().getClientId())),
                 new String(Base64.decodeBase64(spotifyConfig.getCredentials().getClientSecret()))));
-
-        MultiValueMap<String, String> map= new LinkedMultiValueMap<>();
-        map.add("grant_type", "client_credentials");
-
-        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(map, headers);
 
         ResponseEntity<String> response = restTemplate.exchange(spotifyConfig.getTokenUrl().getUrl(),
                 spotifyConfig.getTokenUrl().getType(), request, String.class);
