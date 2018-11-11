@@ -13,3 +13,4 @@ This application is using the following technological stack:
 Currently used APIs:
 
 * [Spotify](https://developer.spotify.com/documentation/web-api/)
+* [Youtube](https://developers.google.com/youtube/v3/getting-started)
