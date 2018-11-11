@@ -1,6 +1,6 @@
 package pt.devhub.antjori.cicd.oac.model;
 
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.http.HttpMethod;
 
 import lombok.Data;
 
@@ -13,7 +13,7 @@ public class Url {
     /**
      * The type of the request method.
      */
-    private RequestMethod type;
+    private HttpMethod type;
 
     /**
      * The web API url.
