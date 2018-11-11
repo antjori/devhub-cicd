@@ -16,6 +16,7 @@ import org.springframework.web.client.RestTemplate;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import pt.devhub.antjori.cicd.oac.config.SpotifyConfig;
+import pt.devhub.antjori.cicd.oac.model.spotify.ClientCredentials;
 import pt.devhub.antjori.cicd.oac.util.WebAPIConstants;
 
 /**
@@ -57,9 +58,9 @@ public class SpotifyService {
                 new String(Base64.decodeBase64(spotifyConfig.getCredentials().getClientId())),
                 new String(Base64.decodeBase64(spotifyConfig.getCredentials().getClientSecret()))));
 
-        ResponseEntity<String> response = restTemplate.exchange(spotifyConfig.getTokenUrl().getUrl(),
-                spotifyConfig.getTokenUrl().getType(), request, String.class);
+        ResponseEntity<ClientCredentials> response = restTemplate.exchange(spotifyConfig.getTokenUrl().getUrl(),
+                spotifyConfig.getTokenUrl().getType(), request, ClientCredentials.class);
 
-        log.info(response.getBody());
+        log.info(response.getBody().getAccessToken());
     }
 }
