@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 /**
- * Spotify's client credentials.
+ * Mapping for Spotify's client credentials.
  */
 @Data
 public class ClientCredentials {
