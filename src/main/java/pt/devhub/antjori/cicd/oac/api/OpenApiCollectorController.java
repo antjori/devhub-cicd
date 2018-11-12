@@ -32,6 +32,6 @@ public class OpenApiCollectorController {
             @ApiResponse(code = 200, message = "Successfully called Spotify's API", response = String.class) })
     @RequestMapping(value = "/api/spotify", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<String> searchSpotify() {
-        return spotifyService.search();
+        return spotifyService.search("Sam The Kid", "artist");
     }
 }

@@ -18,4 +18,6 @@ public class ClientCredentials {
 
     @JsonProperty("expires_in")
     private int expiresIn;
+
+    private String scope;
 }

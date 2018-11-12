@@ -11,6 +11,7 @@ import org.springframework.http.client.support.BasicAuthorizationInterceptor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.client.RestTemplate;
 
 import lombok.RequiredArgsConstructor;
@@ -27,23 +28,32 @@ import pt.devhub.antjori.cicd.oac.util.WebAPIConstants;
 @RequiredArgsConstructor
 public class SpotifyService {
 
+    private ClientCredentials clientCredentials;
+
     @Autowired
     private SpotifyConfig spotifyConfig;
 
-    public ResponseEntity<String> search() {
-        log.info(spotifyConfig.getCredentials().getClientId());
-        log.info(spotifyConfig.getCredentials().getClientSecret());
-        log.info(spotifyConfig.getTokenUrl().getType().name());
-        log.info(spotifyConfig.getTokenUrl().getUrl());
-        log.info(spotifyConfig.getSearchUrl().getType().name());
-        log.info(spotifyConfig.getSearchUrl().getUrl());
+    public ResponseEntity<String> search(final String query, final String type) {
 
-        authenticate();
+        if (ObjectUtils.isEmpty(clientCredentials)) {
+            // Request authorization
+            authorize();
+        }
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", "Bearer " + this.clientCredentials.getAccessToken());
+
+        RestTemplate restTemplate = new RestTemplate();
+
+        ResponseEntity<String> response = restTemplate.exchange(this.spotifyConfig.getSearchUrl().getUrl(),
+                this.spotifyConfig.getSearchUrl().getType(), new HttpEntity<>(headers), String.class, query, type);
+
+        log.info(response.toString());
 
         return new ResponseEntity<>("Spotify", HttpStatus.OK);
     }
 
-    private void authenticate() {
+    private void authorize() {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 
@@ -54,13 +64,14 @@ public class SpotifyService {
 
         RestTemplate restTemplate = new RestTemplate();
 
-        restTemplate.getInterceptors().add(new BasicAuthorizationInterceptor(
-                new String(Base64.decodeBase64(spotifyConfig.getCredentials().getClientId())),
-                new String(Base64.decodeBase64(spotifyConfig.getCredentials().getClientSecret()))));
+        restTemplate.getInterceptors()
+                .add(new BasicAuthorizationInterceptor(
+                        new String(Base64.decodeBase64(this.spotifyConfig.getCredentials().getClientId())),
+                        new String(Base64.decodeBase64(this.spotifyConfig.getCredentials().getClientSecret()))));
 
-        ResponseEntity<ClientCredentials> response = restTemplate.exchange(spotifyConfig.getTokenUrl().getUrl(),
-                spotifyConfig.getTokenUrl().getType(), request, ClientCredentials.class);
+        ResponseEntity<ClientCredentials> response = restTemplate.exchange(this.spotifyConfig.getTokenUrl().getUrl(),
+                this.spotifyConfig.getTokenUrl().getType(), request, ClientCredentials.class);
 
-        log.info(response.getBody().getAccessToken());
+        this.clientCredentials = response.getBody();
     }
 }
