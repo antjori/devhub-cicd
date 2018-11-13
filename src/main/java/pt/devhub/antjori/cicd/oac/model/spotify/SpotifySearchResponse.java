@@ -13,9 +13,19 @@ import lombok.Data;
 public class SpotifySearchResponse {
 
     /**
+     * Spotify's albums.
+     */
+    private SpotifyAlbums albums;
+
+    /**
      * Spotify's artists.
      */
     private SpotifyArtists artists;
+
+    /**
+     * Spotify's tracks.
+     */
+    private SpotifyTracks tracks;
 
     /**
      * Spotify's error object.
