@@ -18,7 +18,7 @@ public class SpotifyArtists {
     /**
      * The requested data.
      */
-    List<Object> items;
+    List<SpotifyArtist> items;
 
     /**
      * The maximum number of items in the response (as set in the query or by default).

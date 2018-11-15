@@ -1,5 +1,6 @@
 package pt.devhub.antjori.cicd.oac.model.spotify;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -13,13 +14,18 @@ import lombok.Data;
  */
 @Data
 @JsonInclude(value = Include.NON_NULL)
-public class SpotifyAlbumItem {
+public class SpotifyAlbum {
 
     /**
      * The type of the album: one of 'album', 'single', or 'compilation'.
      */
     @JsonProperty(value = "album_type")
     private String albumType;
+
+    /**
+     * The list of artists on the album.
+     */
+    private List<SpotifyArtist> artists;
 
     /**
      * The markets in which the album is available: ISO 3166-1 alpha-2 country
@@ -54,6 +60,24 @@ public class SpotifyAlbumItem {
      * The name of the album.
      */
     private String name;
+
+    /**
+     * The date when the album was released.
+     */
+    @JsonProperty(value = "release_date")
+    private LocalDate releaseDate;
+
+    /**
+     * The precision of the release date.
+     */
+    @JsonProperty(value = "release_date_precision")
+    private String releaseDatePrecision;
+
+    /**
+     * The amount of tracks on the album.
+     */
+    @JsonProperty(value = "total_tracks")
+    private int totalTracks;
 
     /**
      * The object type: 'album'.

@@ -22,7 +22,7 @@ public class SpotifyAlbums {
     /**
      * The requested data.
      */
-    List<SpotifyAlbumItem> items;
+    List<SpotifyAlbum> items;
 
     /**
      * The maximum number of items in the response (as set in the query or by default).
