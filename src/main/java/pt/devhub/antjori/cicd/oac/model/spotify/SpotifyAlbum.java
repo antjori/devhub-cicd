@@ -4,8 +4,8 @@ import java.time.LocalDate;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Data;
 
@@ -88,16 +88,6 @@ public class SpotifyAlbum {
      * The Spotify URI for the album.
      */
     private String uri;
-
-    /**
-     * Mapping for Spotify's album item external URL.
-     */
-    @Data
-    @JsonInclude(value = Include.NON_NULL)
-    private static final class ExternalUrl {
-
-        private String spotify;
-    }
 
     /**
      * Mapping class for the image of Spotify's album item. The cover art for the
