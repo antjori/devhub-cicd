@@ -8,11 +8,13 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Data;
+import lombok.ToString;
 
 /**
  * Mapping for Spotify's album item.
  */
 @Data
+@ToString
 @JsonInclude(value = Include.NON_NULL)
 public class SpotifyAlbum {
 
@@ -39,7 +41,7 @@ public class SpotifyAlbum {
      * Known external URLs for this album.
      */
     @JsonProperty(value = "external_urls")
-    private List<ExternalUrl> externalUrls;
+    private ExternalUrls externalUrls;
 
     /**
      * A link to the Web API endpoint providing full details of the album.
@@ -94,6 +96,7 @@ public class SpotifyAlbum {
      * album in various sizes, widest first.
      */
     @Data
+    @ToString
     @JsonInclude(value = Include.NON_NULL)
     private static final class Image {
 

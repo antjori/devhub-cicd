@@ -1,11 +1,13 @@
 package pt.devhub.antjori.cicd.oac.model.spotify;
 
 import lombok.Data;
+import lombok.ToString;
 
 /**
  * Mapping for Spotify's error.
  */
 @Data
+@ToString
 public class SpotifyError {
 
     /**

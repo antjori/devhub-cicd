@@ -4,7 +4,6 @@ import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.support.BasicAuthorizationInterceptor;
@@ -15,25 +14,26 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.web.client.RestTemplate;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import pt.devhub.antjori.cicd.oac.config.SpotifyConfig;
 import pt.devhub.antjori.cicd.oac.model.spotify.ClientCredentials;
+import pt.devhub.antjori.cicd.oac.model.spotify.SpotifySearchResponse;
 import pt.devhub.antjori.cicd.oac.util.WebAPIConstants;
 
 /**
  * The service that allows the communication with Spotify Web API.
  */
-@Slf4j
 @Service
 @RequiredArgsConstructor
 public class SpotifyService {
 
+    // The client credentials.
     private ClientCredentials clientCredentials;
 
+    // The Spotify's Spring Boot configuration.
     @Autowired
     private SpotifyConfig spotifyConfig;
 
-    public ResponseEntity<String> search(final String query, final String type) {
+    public SpotifySearchResponse search(final String query, final String type) {
 
         if (ObjectUtils.isEmpty(clientCredentials)) {
             // Request authorization
@@ -45,12 +45,11 @@ public class SpotifyService {
 
         RestTemplate restTemplate = new RestTemplate();
 
-        ResponseEntity<String> response = restTemplate.exchange(this.spotifyConfig.getSearchUrl().getUrl(),
-                this.spotifyConfig.getSearchUrl().getType(), new HttpEntity<>(headers), String.class, query, type);
+        ResponseEntity<SpotifySearchResponse> response = restTemplate.exchange(
+                this.spotifyConfig.getSearchUrl().getUrl(), this.spotifyConfig.getSearchUrl().getType(),
+                new HttpEntity<>(headers), SpotifySearchResponse.class, query, type);
 
-        log.info(response.toString());
-
-        return new ResponseEntity<>("Spotify", HttpStatus.OK);
+        return response.getBody();
     }
 
     private void authorize() {

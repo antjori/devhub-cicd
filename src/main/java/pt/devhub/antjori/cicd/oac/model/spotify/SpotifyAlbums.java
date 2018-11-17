@@ -6,11 +6,13 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import lombok.Data;
+import lombok.ToString;
 
 /**
  * Mapping for Spotify's albums.
  */
 @Data
+@ToString
 @JsonInclude(value = Include.NON_NULL)
 public class SpotifyAlbums {
 
@@ -25,7 +27,8 @@ public class SpotifyAlbums {
     List<SpotifyAlbum> items;
 
     /**
-     * The maximum number of items in the response (as set in the query or by default).
+     * The maximum number of items in the response (as set in the query or by
+     * default).
      */
     private int limit;
 
@@ -33,7 +36,7 @@ public class SpotifyAlbums {
      * URL to the next page of items. (null if none)
      */
     private String next;
-    
+
     /**
      * The offset of the items returned (as set in the query or by default).
      */
@@ -43,11 +46,10 @@ public class SpotifyAlbums {
      * URL to the previous page of items. (null if none)
      */
     private String previous;
-    
 
     /**
      * The total number of items available to return.
      */
     private int total;
-    
+
 }

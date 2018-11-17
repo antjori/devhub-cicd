@@ -4,11 +4,13 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import lombok.Data;
+import lombok.ToString;
 
 /**
  * Mapping for Spotify's search response.
  */
 @Data
+@ToString
 @JsonInclude(Include.NON_NULL)
 public class SpotifySearchResponse {
 
