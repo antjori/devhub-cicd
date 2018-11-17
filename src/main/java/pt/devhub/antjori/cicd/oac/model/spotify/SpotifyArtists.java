@@ -2,12 +2,16 @@ package pt.devhub.antjori.cicd.oac.model.spotify;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 import lombok.Data;
 
 /**
  * Mapping for Spotify's artists.
  */
 @Data
+@JsonInclude(value = Include.NON_NULL)
 public class SpotifyArtists {
 
     /**
@@ -21,7 +25,8 @@ public class SpotifyArtists {
     List<SpotifyArtist> items;
 
     /**
-     * The maximum number of items in the response (as set in the query or by default).
+     * The maximum number of items in the response (as set in the query or by
+     * default).
      */
     private int limit;
 
