@@ -33,6 +33,15 @@ public class SpotifyService {
     @Autowired
     private SpotifyConfig spotifyConfig;
 
+    /**
+     * Searches Spotify's database taking into account the query and the type passed
+     * as arguments.
+     * 
+     * @param query the search query
+     * @param type  one of 'album', 'artist' or 'track
+     * @return Spotify's search response taking into account the query and the type
+     *         passed as arguments
+     */
     public SpotifySearchResponse search(final String query, final String type) {
 
         if (ObjectUtils.isEmpty(clientCredentials)) {
@@ -52,6 +61,10 @@ public class SpotifyService {
         return response.getBody();
     }
 
+    /**
+     * Executes a POST request on Spotify's API in order to retrieve an
+     * authorization token for usage on future requests.
+     */
     private void authorize() {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
