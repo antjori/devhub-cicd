@@ -45,8 +45,8 @@ public class SpotifyService {
     public SpotifySearchResponse search(final String query, final String type) {
 
         if (ObjectUtils.isEmpty(clientCredentials)) {
-            // Request authorization
-            authorize();
+            // Request authorization token
+            this.clientCredentials = authorize();
         }
 
         HttpHeaders headers = new HttpHeaders();
@@ -65,7 +65,7 @@ public class SpotifyService {
      * Executes a POST request on Spotify's API in order to retrieve an
      * authorization token for usage on future requests.
      */
-    private void authorize() {
+    private ClientCredentials authorize() {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 
@@ -84,6 +84,6 @@ public class SpotifyService {
         ResponseEntity<ClientCredentials> response = restTemplate.exchange(this.spotifyConfig.getTokenUrl().getUrl(),
                 this.spotifyConfig.getTokenUrl().getType(), request, ClientCredentials.class);
 
-        this.clientCredentials = response.getBody();
+        return response.getBody();
     }
 }
