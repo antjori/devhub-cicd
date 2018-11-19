@@ -82,11 +82,6 @@
             <version>${springfox.version}</version>
             <scope>compile</scope>
         </dependency>
-        <!-- misc -->
-        <dependency>
-            <groupId>com.google.code.gson</groupId>
-            <artifactId>gson</artifactId>
-        </dependency>
         <!-- provided -->
         <dependency>
             <groupId>org.projectlombok</groupId>
