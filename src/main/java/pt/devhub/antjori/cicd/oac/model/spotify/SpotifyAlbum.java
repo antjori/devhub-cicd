@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
@@ -15,8 +16,9 @@ import lombok.ToString;
  */
 @Data
 @ToString
+@EqualsAndHashCode(callSuper = true)
 @JsonInclude(value = Include.NON_NULL)
-public class SpotifyAlbum {
+public class SpotifyAlbum extends SpotifyElement {
 
     /**
      * The type of the album: one of 'album', 'single', or 'compilation'.
@@ -38,32 +40,6 @@ public class SpotifyAlbum {
     private List<String> availableMarkets;
 
     /**
-     * Known external URLs for this album.
-     */
-    @JsonProperty(value = "external_urls")
-    private ExternalUrls externalUrls;
-
-    /**
-     * A link to the Web API endpoint providing full details of the album.
-     */
-    private String href;
-
-    /**
-     * The Spotify ID for the album.
-     */
-    private String id;
-
-    /**
-     * The cover art for the album in various sizes, widest first.
-     */
-    private List<Image> images;
-
-    /**
-     * The name of the album.
-     */
-    private String name;
-
-    /**
      * The date when the album was released.
      */
     @JsonProperty(value = "release_date")
@@ -80,40 +56,4 @@ public class SpotifyAlbum {
      */
     @JsonProperty(value = "total_tracks")
     private int totalTracks;
-
-    /**
-     * The object type: 'album'.
-     */
-    private String type;
-
-    /**
-     * The Spotify URI for the album.
-     */
-    private String uri;
-
-    /**
-     * Mapping class for the image of Spotify's album item. The cover art for the
-     * album in various sizes, widest first.
-     */
-    @Data
-    @ToString
-    @JsonInclude(value = Include.NON_NULL)
-    private static final class Image {
-
-        /**
-         * The image height in pixels. If unknown: null or not returned.
-         */
-        private int height;
-
-        /**
-         * The source URL of the image.
-         */
-        private String url;
-
-        /**
-         * The image width in pixels. If unknown: null or not returned.
-         */
-        private int width;
-    }
-
 }
