@@ -40,6 +40,11 @@ public class SpotifyAlbum extends SpotifyElement {
     private List<String> availableMarkets;
 
     /**
+     * The copyright statements of the album.
+     */
+    private List<Copyright> copyrights;
+
+    /**
      * The date when the album was released.
      */
     @JsonProperty(value = "release_date")
@@ -56,4 +61,24 @@ public class SpotifyAlbum extends SpotifyElement {
      */
     @JsonProperty(value = "total_tracks")
     private int totalTracks;
+
+    /**
+     * Mapping class for the copyright statements of the album.
+     */
+    @Data
+    @ToString
+    @JsonInclude(value = Include.NON_NULL)
+    private static final class Copyright {
+
+        /**
+         * The copyright text for this album.
+         */
+        private String text;
+
+        /**
+         * The type of copyright: C = the copyright, P = the sound recording
+         * (performance) copyright.
+         */
+        private String type;
+    }
 }
