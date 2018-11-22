@@ -2,6 +2,7 @@ package pt.devhub.antjori.cicd.oac.model.spotify;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -43,6 +44,12 @@ public class SpotifyAlbum extends SpotifyElement {
      * The copyright statements of the album.
      */
     private List<Copyright> copyrights;
+
+    /**
+     * Known external IDs for the album.
+     */
+    @JsonProperty(value = "external_ids")
+    private Map<String, String> externalIDs;
 
     /**
      * The date when the album was released.

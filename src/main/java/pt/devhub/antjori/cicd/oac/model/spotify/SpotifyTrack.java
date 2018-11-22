@@ -1,6 +1,7 @@
 package pt.devhub.antjori.cicd.oac.model.spotify;
 
 import java.util.List;
+import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -58,7 +59,7 @@ public class SpotifyTrack extends SpotifyElement {
      * Known external IDs for the track.
      */
     @JsonProperty(value = "external_ids")
-    private ExternalIDs externalIDs;
+    private Map<String, String> externalIDs;
 
     /**
      * Part of the response when Track Relinking is applied. If true , the track is
@@ -107,22 +108,6 @@ public class SpotifyTrack extends SpotifyElement {
      */
     @JsonProperty(value = "is_local")
     private boolean isLocal;
-
-    /**
-     * Mapping for Spotify's external IDs.
-     */
-    @Data
-    @ToString
-    @JsonInclude(value = Include.NON_NULL)
-    private static final class ExternalIDs {
-
-        /**
-         * The identifier type, for example: "isrc" (International Standard Recording
-         * Code), "ean" (International Article Number) or "upc" (Universal Product
-         * Code).
-         */
-        private String isrc;
-    }
 
     /**
      * Mapping for Spotify's linked from object.
