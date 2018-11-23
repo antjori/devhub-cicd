@@ -106,6 +106,11 @@ public class SpotifyAlbum extends SpotifyElement {
     private int totalTracks;
 
     /**
+     * The tracks of the album.
+     */
+    private List<SpotifyTrack> tracks;
+
+    /**
      * Mapping class for the copyright statements of the album.
      */
     @Data

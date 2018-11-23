@@ -24,7 +24,8 @@ public class SpotifyArtist extends SpotifyElement {
     private Followers followers;
 
     /**
-     * The genres the artist plays.
+     * A list of the genres the artist is associated with. For example: "Prog Rock"
+     * , "Post-Grunge". (If not yet classified, the array is empty.)
      */
     private List<String> genres;
 

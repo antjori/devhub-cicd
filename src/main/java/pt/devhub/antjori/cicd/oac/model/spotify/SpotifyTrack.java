@@ -35,6 +35,7 @@ public class SpotifyTrack extends SpotifyElement {
      * A list of the countries in which the track can be played, identified by their
      * ISO 3166-1 alpha-2 code.
      */
+    @JsonProperty(value = "available_markets")
     private List<String> availableMarkets;
 
     /**
@@ -75,6 +76,15 @@ public class SpotifyTrack extends SpotifyElement {
      */
     @JsonProperty(value = "linked_from")
     private TrackLink linkedFrom;
+
+    /**
+     * Part of the response when Track Relinking is applied, the original track is
+     * not available in the given market, and Spotify did not have any tracks to
+     * relink it with. The track response will still contain metadata for the
+     * original track, and a restrictions object containing the reason why the track
+     * is not available: {@code "restrictions" : {"reason" : "market"}}
+     */
+    private Map<String, String> restrictions;
 
     /**
      * The popularity of the track. The value will be between 0 and 100, with 100
