@@ -1,6 +1,7 @@
 package pt.devhub.antjori.cicd.oac.model.spotify;
 
 import java.util.List;
+import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -22,7 +23,7 @@ public abstract class SpotifyElement {
      * Known external URLs for this album.
      */
     @JsonProperty(value = "external_urls")
-    private ExternalUrls externalUrls;
+    private Map<String, String> externalUrls;
 
     /**
      * A link to the Web API endpoint providing full details of the element.

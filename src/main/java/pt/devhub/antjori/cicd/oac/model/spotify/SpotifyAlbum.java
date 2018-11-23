@@ -22,6 +22,14 @@ import lombok.ToString;
 public class SpotifyAlbum extends SpotifyElement {
 
     /**
+     * The field is present when getting an artist’s albums. Possible values are
+     * “album”, “single”, “compilation”, “appears_on”. Compare to album_type this
+     * field represents relationship between the artist and the album.
+     */
+    @JsonProperty(value = "album_group")
+    private String albumGroup;
+
+    /**
      * The type of the album: one of 'album', 'single', or 'compilation'.
      */
     @JsonProperty(value = "album_type")
@@ -52,16 +60,44 @@ public class SpotifyAlbum extends SpotifyElement {
     private Map<String, String> externalIDs;
 
     /**
-     * The date when the album was released.
+     * A list of the genres used to classify the album. For example: "Prog Rock",
+     * "Post-Grunge". (If not yet classified, the array is empty.)
+     */
+    private List<String> genres;
+
+    /**
+     * The label for the album.
+     */
+    private String label;
+
+    /**
+     * The popularity of the album. The value will be between 0 and 100, with 100
+     * being the most popular. The popularity is calculated from the popularity of
+     * the album’s individual tracks.
+     */
+    private int popularity;
+
+    /**
+     * The date the album was first released, for example 1981. Depending on the
+     * precision, it might be shown as 1981-12 or 1981-12-15.
      */
     @JsonProperty(value = "release_date")
     private LocalDate releaseDate;
 
     /**
-     * The precision of the release date.
+     * The precision with which release_date value is known: year, month or day.
      */
     @JsonProperty(value = "release_date_precision")
     private String releaseDatePrecision;
+
+    /**
+     * Part of the response when Track Relinking is applied, the original track is
+     * not available in the given market, and Spotify did not have any tracks to
+     * relink it with. The track response will still contain metadata for the
+     * original track, and a restrictions object containing the reason why the track
+     * is not available: {@code "restrictions" : {"reason" : "market"}}
+     */
+    private Map<String, String> restrictions;
 
     /**
      * The amount of tracks on the album.
