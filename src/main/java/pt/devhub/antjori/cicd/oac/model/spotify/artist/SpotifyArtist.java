@@ -1,4 +1,4 @@
-package pt.devhub.antjori.cicd.oac.model.spotify;
+package pt.devhub.antjori.cicd.oac.model.spotify.artist;
 
 import java.util.List;
 
@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import pt.devhub.antjori.cicd.oac.model.spotify.SpotifyElement;
 
 /**
  * Mapping for Spotify's artist item.

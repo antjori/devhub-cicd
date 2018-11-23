@@ -16,7 +16,7 @@ import org.springframework.web.client.RestTemplate;
 import lombok.RequiredArgsConstructor;
 import pt.devhub.antjori.cicd.oac.config.SpotifyConfig;
 import pt.devhub.antjori.cicd.oac.model.spotify.ClientCredentials;
-import pt.devhub.antjori.cicd.oac.model.spotify.SpotifySearchResponse;
+import pt.devhub.antjori.cicd.oac.model.spotify.response.SpotifySearchResponse;
 import pt.devhub.antjori.cicd.oac.util.WebAPIConstants;
 
 /**

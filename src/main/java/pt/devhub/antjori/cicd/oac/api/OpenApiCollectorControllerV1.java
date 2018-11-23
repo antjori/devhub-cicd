@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import pt.devhub.antjori.cicd.oac.model.spotify.SpotifySearchResponse;
+import pt.devhub.antjori.cicd.oac.model.spotify.response.SpotifySearchResponse;
 import pt.devhub.antjori.cicd.oac.service.spotify.SpotifyService;
 
 /**

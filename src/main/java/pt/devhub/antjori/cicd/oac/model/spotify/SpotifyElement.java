@@ -9,6 +9,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Data;
 import lombok.ToString;
+import pt.devhub.antjori.cicd.oac.model.spotify.album.SpotifyAlbum;
+import pt.devhub.antjori.cicd.oac.model.spotify.artist.SpotifyArtist;
 
 /**
  * Super class for all Spotify elements ({@link SpotifyAlbum} and

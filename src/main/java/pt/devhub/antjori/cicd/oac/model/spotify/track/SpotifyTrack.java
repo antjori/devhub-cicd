@@ -1,4 +1,4 @@
-package pt.devhub.antjori.cicd.oac.model.spotify;
+package pt.devhub.antjori.cicd.oac.model.spotify.track;
 
 import java.util.List;
 import java.util.Map;
@@ -10,6 +10,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import pt.devhub.antjori.cicd.oac.model.spotify.SpotifyElement;
+import pt.devhub.antjori.cicd.oac.model.spotify.album.SpotifyAlbum;
+import pt.devhub.antjori.cicd.oac.model.spotify.artist.SpotifyArtist;
 
 /**
  * Mapping for Spotify's track item.
@@ -131,7 +134,7 @@ public class SpotifyTrack extends SpotifyElement {
          * Known external URLs for this track.
          */
         @JsonProperty(value = "external_urls")
-        private ExternalUrls externalUrls;
+        private Map<String, String> externalUrls;
 
         /**
          * A link to the Web API endpoint providing full details of the track.
