@@ -42,7 +42,7 @@ oac:
       url: https://api.spotify.com/v1/search?q={query}&type={type}
   youtube:
     credentials:
-      clientSecret: AIzaSyB6zzLmbTaRW47u09I9yDWpgW0LizisKAk
+      clientSecret: 
     searchUrl:
       type: GET
       url: https://www.googleapis.com/youtube/v3/search
