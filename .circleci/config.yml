@@ -32,6 +32,9 @@ jobs:
 
       # Goals to run
 
+      # run clean
+      - run: mvn clean
+
       # run tests
       - run: mvn verify
 
