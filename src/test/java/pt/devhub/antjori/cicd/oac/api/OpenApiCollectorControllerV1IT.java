@@ -10,11 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.http.HttpHeaders;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
+import org.springframework.util.Base64Utils;
 
 import pt.devhub.antjori.cicd.oac.OpenApiCollectorApplication;
 
@@ -43,8 +45,10 @@ public class OpenApiCollectorControllerV1IT {
     @Test
     public void testSearchSpotify() throws Exception {
         // given
-        MockHttpServletRequestBuilder get = get(REQUEST_MAPPING + "/api/spotify").param("q", "Eminem").param("type",
-                "artist");
+        MockHttpServletRequestBuilder get = get(REQUEST_MAPPING + "/api/spotify")
+                .header(HttpHeaders.AUTHORIZATION,
+                        "Basic " + Base64Utils.encodeToString("oac-user:password".getBytes()))
+                .param("q", "Eminem").param("type", "artist");
 
         // when
         ResultActions resultActions = mvc.perform(get).andDo(print());
