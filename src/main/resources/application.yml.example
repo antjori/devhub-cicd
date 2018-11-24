@@ -32,11 +32,17 @@ springfox:
 oac:
   spotify:
     credentials:
-      clientId: <myClientId>
-      clientSecret: <myClientSecret>
+      clientId: <mySpotifyClientId>
+      clientSecret: <mySpotifyClientSecret>
     tokenUrl:
       type: POST
       url: https://accounts.spotify.com/api/token
     searchUrl:
       type: GET
       url: https://api.spotify.com/v1/search
+  youtube:
+    credentials:
+      clientSecret: <myYoutubeClientSecret>
+    searchUrl:
+      type: GET
+      url: https://www.googleapis.com/youtube/v3/search
