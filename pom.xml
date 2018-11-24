@@ -12,10 +12,10 @@
     </parent>
 
     <groupId>pt.devhub.antjori.cicd</groupId>
-    <artifactId>open-api-aggregator</artifactId>
+    <artifactId>open-api-collectorr</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
-    <name>Open API Aggregator</name>
+    <name>Open API Collector</name>
     <description>Example application using CI/CD approach.</description>
 
     <properties>
@@ -56,9 +56,10 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
-                <configuration>
+                <!--configuration>
                     <useSystemClassLoader>false</useSystemClassLoader>
-                </configuration>
+                </configuration-->
+                <version>2.22.1</version>
                 <executions>
                     <execution>
                         <goals>
