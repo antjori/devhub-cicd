@@ -1,9 +1,12 @@
 package pt.devhub.antjori.cicd.oac.api;
 
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +14,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpHeaders;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
@@ -21,6 +24,8 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 import org.springframework.util.Base64Utils;
 
 import pt.devhub.antjori.cicd.oac.OpenApiCollectorApplication;
+import pt.devhub.antjori.cicd.oac.model.spotify.response.SpotifySearchResponse;
+import pt.devhub.antjori.cicd.oac.service.spotify.SpotifyService;
 
 /**
  * Test class for {@link OpenApiCollectorControllerV1} where will be depicted
@@ -29,7 +34,6 @@ import pt.devhub.antjori.cicd.oac.OpenApiCollectorApplication;
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT, classes = OpenApiCollectorApplication.class)
 @AutoConfigureMockMvc
-@TestPropertySource("classpath:application-test.yml")
 @ActiveProfiles(value = "test")
 public class OpenApiCollectorControllerV1IT {
 
@@ -47,9 +51,17 @@ public class OpenApiCollectorControllerV1IT {
     @Autowired
     private MockMvc mvc;
 
+    @MockBean
+    private SpotifyService spotifyService;
+
     // =======
     // SPOTIFY
     // =======
+
+    @Before
+    public void setup() {
+        when(spotifyService.search(anyString(), anyString())).thenReturn(new SpotifySearchResponse());
+    }
 
     @Test
     public void testSearchSpotify() throws Exception {
