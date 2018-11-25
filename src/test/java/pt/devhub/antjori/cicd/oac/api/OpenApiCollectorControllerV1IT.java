@@ -27,7 +27,10 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 import org.springframework.util.Base64Utils;
 
 import pt.devhub.antjori.cicd.oac.OpenApiCollectorApplication;
+import pt.devhub.antjori.cicd.oac.model.spotify.album.SpotifyAlbums;
+import pt.devhub.antjori.cicd.oac.model.spotify.artist.SpotifyArtists;
 import pt.devhub.antjori.cicd.oac.model.spotify.response.SpotifySearchResponse;
+import pt.devhub.antjori.cicd.oac.model.spotify.track.SpotifyTracks;
 import pt.devhub.antjori.cicd.oac.service.spotify.SpotifyService;
 
 /**
@@ -63,16 +66,21 @@ public class OpenApiCollectorControllerV1IT {
 
     @Before
     public void setup() {
-        when(spotifyService.search(anyString(), anyString())).thenReturn(new SpotifySearchResponse());
+
     }
 
     @Test
-    public void testSearchSpotify() throws Exception {
+    public void testSearchSpotifyAlbums() throws Exception {
         // given
         MockHttpServletRequestBuilder get = get(REQUEST_MAPPING + "/api/spotify")
                 .header(HttpHeaders.AUTHORIZATION,
                         "Basic " + Base64Utils.encodeToString((user + ":" + password).getBytes()))
-                .param("q", "Eminem").param("type", "artist");
+                .param("q", "Eminem").param("type", "album");
+
+        SpotifySearchResponse response = new SpotifySearchResponse();
+        response.setAlbums(new SpotifyAlbums());
+
+        when(spotifyService.search(anyString(), anyString())).thenReturn(response);
 
         // when
         ResultActions resultActions = mvc.perform(get).andDo(print());
@@ -81,5 +89,52 @@ public class OpenApiCollectorControllerV1IT {
         resultActions.andExpect(status().isOk());
         resultActions.andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON_UTF8_VALUE));
         resultActions.andExpect(jsonPath("$").exists());
+        resultActions.andExpect(jsonPath("$.albums").exists());
+    }
+
+    @Test
+    public void testSearchSpotifyArtists() throws Exception {
+        // given
+        MockHttpServletRequestBuilder get = get(REQUEST_MAPPING + "/api/spotify")
+                .header(HttpHeaders.AUTHORIZATION,
+                        "Basic " + Base64Utils.encodeToString((user + ":" + password).getBytes()))
+                .param("q", "Eminem").param("type", "artist");
+
+        SpotifySearchResponse response = new SpotifySearchResponse();
+        response.setArtists(new SpotifyArtists());
+
+        when(spotifyService.search(anyString(), anyString())).thenReturn(response);
+
+        // when
+        ResultActions resultActions = mvc.perform(get).andDo(print());
+
+        // then
+        resultActions.andExpect(status().isOk());
+        resultActions.andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON_UTF8_VALUE));
+        resultActions.andExpect(jsonPath("$").exists());
+        resultActions.andExpect(jsonPath("$.artists").exists());
+    }
+
+    @Test
+    public void testSearchSpotifyTracks() throws Exception {
+        // given
+        MockHttpServletRequestBuilder get = get(REQUEST_MAPPING + "/api/spotify")
+                .header(HttpHeaders.AUTHORIZATION,
+                        "Basic " + Base64Utils.encodeToString((user + ":" + password).getBytes()))
+                .param("q", "Eminem").param("type", "track");
+
+        SpotifySearchResponse response = new SpotifySearchResponse();
+        response.setTracks(new SpotifyTracks());
+
+        when(spotifyService.search(anyString(), anyString())).thenReturn(response);
+
+        // when
+        ResultActions resultActions = mvc.perform(get).andDo(print());
+
+        // then
+        resultActions.andExpect(status().isOk());
+        resultActions.andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON_UTF8_VALUE));
+        resultActions.andExpect(jsonPath("$").exists());
+        resultActions.andExpect(jsonPath("$.tracks").exists());
     }
 }
