@@ -1,4 +1,4 @@
-package pt.devhub.antjori.cicd.oac.model.spotify.track;
+package pt.devhub.antjori.cicd.oac.spotify.model.track;
 
 import java.util.List;
 import java.util.Map;
@@ -10,9 +10,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import pt.devhub.antjori.cicd.oac.model.spotify.SpotifyElement;
-import pt.devhub.antjori.cicd.oac.model.spotify.album.SpotifyAlbum;
-import pt.devhub.antjori.cicd.oac.model.spotify.artist.SpotifyArtist;
+import pt.devhub.antjori.cicd.oac.spotify.model.SpotifyElement;
+import pt.devhub.antjori.cicd.oac.spotify.model.album.SpotifyAlbum;
+import pt.devhub.antjori.cicd.oac.spotify.model.artist.SpotifyArtist;
 
 /**
  * Mapping for Spotify's track item.

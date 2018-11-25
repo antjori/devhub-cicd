@@ -1,4 +1,4 @@
-package pt.devhub.antjori.cicd.oac.util;
+package pt.devhub.antjori.cicd.oac.spotify.util;
 
 /**
  * Utility class for sheltering all web API constants.

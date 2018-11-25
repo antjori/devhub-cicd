@@ -1,4 +1,4 @@
-package pt.devhub.antjori.cicd.oac.model.spotify.album;
+package pt.devhub.antjori.cicd.oac.spotify.model.album;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -11,9 +11,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import pt.devhub.antjori.cicd.oac.model.spotify.SpotifyElement;
-import pt.devhub.antjori.cicd.oac.model.spotify.artist.SpotifyArtist;
-import pt.devhub.antjori.cicd.oac.model.spotify.track.SpotifyTrack;
+import pt.devhub.antjori.cicd.oac.spotify.model.SpotifyElement;
+import pt.devhub.antjori.cicd.oac.spotify.model.artist.SpotifyArtist;
+import pt.devhub.antjori.cicd.oac.spotify.model.track.SpotifyTrack;
 
 /**
  * Mapping for Spotify's album item.

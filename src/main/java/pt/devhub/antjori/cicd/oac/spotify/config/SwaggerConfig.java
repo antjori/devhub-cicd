@@ -1,4 +1,4 @@
-package pt.devhub.antjori.cicd.oac.config;
+package pt.devhub.antjori.cicd.oac.spotify.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

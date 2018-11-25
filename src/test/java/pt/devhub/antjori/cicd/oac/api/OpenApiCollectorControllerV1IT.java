@@ -27,11 +27,11 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 import org.springframework.util.Base64Utils;
 
 import pt.devhub.antjori.cicd.oac.OpenApiCollectorApplication;
-import pt.devhub.antjori.cicd.oac.model.spotify.album.SpotifyAlbums;
-import pt.devhub.antjori.cicd.oac.model.spotify.artist.SpotifyArtists;
-import pt.devhub.antjori.cicd.oac.model.spotify.response.SpotifySearchResponse;
-import pt.devhub.antjori.cicd.oac.model.spotify.track.SpotifyTracks;
-import pt.devhub.antjori.cicd.oac.service.spotify.SpotifyService;
+import pt.devhub.antjori.cicd.oac.spotify.model.album.SpotifyAlbums;
+import pt.devhub.antjori.cicd.oac.spotify.model.artist.SpotifyArtists;
+import pt.devhub.antjori.cicd.oac.spotify.model.response.SpotifySearchResponse;
+import pt.devhub.antjori.cicd.oac.spotify.model.track.SpotifyTracks;
+import pt.devhub.antjori.cicd.oac.spotify.service.SpotifyService;
 
 /**
  * Test class for {@link OpenApiCollectorControllerV1} where will be depicted

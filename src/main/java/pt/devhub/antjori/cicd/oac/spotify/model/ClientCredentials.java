@@ -1,4 +1,4 @@
-package pt.devhub.antjori.cicd.oac.model.spotify;
+package pt.devhub.antjori.cicd.oac.spotify.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

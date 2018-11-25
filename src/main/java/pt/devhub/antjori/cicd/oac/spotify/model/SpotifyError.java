@@ -1,4 +1,4 @@
-package pt.devhub.antjori.cicd.oac.model.spotify;
+package pt.devhub.antjori.cicd.oac.spotify.model;
 
 import lombok.Data;
 import lombok.ToString;

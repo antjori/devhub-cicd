@@ -1,4 +1,4 @@
-package pt.devhub.antjori.cicd.oac.model.spotify;
+package pt.devhub.antjori.cicd.oac.spotify.model;
 
 import java.util.List;
 import java.util.Map;
@@ -9,8 +9,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Data;
 import lombok.ToString;
-import pt.devhub.antjori.cicd.oac.model.spotify.album.SpotifyAlbum;
-import pt.devhub.antjori.cicd.oac.model.spotify.artist.SpotifyArtist;
+import pt.devhub.antjori.cicd.oac.spotify.model.album.SpotifyAlbum;
+import pt.devhub.antjori.cicd.oac.spotify.model.artist.SpotifyArtist;
 
 /**
  * Super class for all Spotify elements ({@link SpotifyAlbum} and

@@ -1,4 +1,4 @@
-package pt.devhub.antjori.cicd.oac.model;
+package pt.devhub.antjori.cicd.oac.spotify.util;
 
 import org.springframework.http.HttpMethod;
 

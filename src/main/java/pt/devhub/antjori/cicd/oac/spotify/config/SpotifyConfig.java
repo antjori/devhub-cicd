@@ -1,11 +1,11 @@
-package pt.devhub.antjori.cicd.oac.config;
+package pt.devhub.antjori.cicd.oac.spotify.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
 import lombok.Data;
-import pt.devhub.antjori.cicd.oac.model.Credentials;
-import pt.devhub.antjori.cicd.oac.model.Url;
+import pt.devhub.antjori.cicd.oac.spotify.util.Credentials;
+import pt.devhub.antjori.cicd.oac.spotify.util.Url;
 
 /**
  * The configuration for Spotify Web API.
