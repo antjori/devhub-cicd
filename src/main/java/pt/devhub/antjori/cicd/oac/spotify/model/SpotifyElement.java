@@ -64,7 +64,7 @@ public abstract class SpotifyElement {
     @Data
     @ToString
     @JsonInclude(value = Include.NON_NULL)
-    private static final class Image {
+    public static final class Image {
 
         /**
          * The image height in pixels. If unknown: null or not returned.
