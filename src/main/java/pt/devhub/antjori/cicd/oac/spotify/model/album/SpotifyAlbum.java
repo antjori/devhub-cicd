@@ -14,6 +14,7 @@ import lombok.ToString;
 import pt.devhub.antjori.cicd.oac.spotify.model.SpotifyElement;
 import pt.devhub.antjori.cicd.oac.spotify.model.artist.SpotifyArtist;
 import pt.devhub.antjori.cicd.oac.spotify.model.track.SpotifyTrack;
+import pt.devhub.antjori.cicd.oac.spotify.util.SpotifyElementType;
 
 /**
  * Mapping for Spotify's album item.
@@ -131,5 +132,13 @@ public class SpotifyAlbum extends SpotifyElement {
          * (performance) copyright.
          */
         private String type;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getElementType() {
+        return SpotifyElementType.ALBUM.getType();
     }
 }

@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import pt.devhub.antjori.cicd.oac.spotify.model.SpotifyElement;
+import pt.devhub.antjori.cicd.oac.spotify.util.SpotifyElementType;
 
 /**
  * Mapping for Spotify's artist item.
@@ -52,5 +53,13 @@ public class SpotifyArtist extends SpotifyElement {
          * The amount of followers of the artist.
          */
         private int total;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getElementType() {
+        return SpotifyElementType.ARTIST.getType();
     }
 }

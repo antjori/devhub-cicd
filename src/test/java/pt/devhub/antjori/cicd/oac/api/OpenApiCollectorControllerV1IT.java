@@ -27,10 +27,8 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 import org.springframework.util.Base64Utils;
 
 import pt.devhub.antjori.cicd.oac.OpenApiCollectorApplication;
-import pt.devhub.antjori.cicd.oac.spotify.model.album.SpotifyAlbums;
-import pt.devhub.antjori.cicd.oac.spotify.model.artist.SpotifyArtists;
+import pt.devhub.antjori.cicd.oac.OpenApiCollectorTestHelper;
 import pt.devhub.antjori.cicd.oac.spotify.model.response.SpotifySearchResponse;
-import pt.devhub.antjori.cicd.oac.spotify.model.track.SpotifyTracks;
 import pt.devhub.antjori.cicd.oac.spotify.service.SpotifyService;
 
 /**
@@ -57,6 +55,9 @@ public class OpenApiCollectorControllerV1IT {
     @Autowired
     private MockMvc mvc;
 
+    @Autowired
+    private OpenApiCollectorTestHelper testHelper;
+
     @MockBean
     private SpotifyService spotifyService;
 
@@ -78,7 +79,7 @@ public class OpenApiCollectorControllerV1IT {
                 .param("q", "Eminem").param("type", "album");
 
         SpotifySearchResponse response = new SpotifySearchResponse();
-        response.setAlbums(new SpotifyAlbums());
+        response.setAlbums(this.testHelper.createSpotifyAlbums());
 
         when(spotifyService.search(anyString(), anyString())).thenReturn(response);
 
@@ -101,7 +102,7 @@ public class OpenApiCollectorControllerV1IT {
                 .param("q", "Eminem").param("type", "artist");
 
         SpotifySearchResponse response = new SpotifySearchResponse();
-        response.setArtists(new SpotifyArtists());
+        response.setArtists(this.testHelper.createSpotifyArtists());
 
         when(spotifyService.search(anyString(), anyString())).thenReturn(response);
 
@@ -124,7 +125,7 @@ public class OpenApiCollectorControllerV1IT {
                 .param("q", "Eminem").param("type", "track");
 
         SpotifySearchResponse response = new SpotifySearchResponse();
-        response.setTracks(new SpotifyTracks());
+        response.setTracks(this.testHelper.createSpotifyTracks());
 
         when(spotifyService.search(anyString(), anyString())).thenReturn(response);
 

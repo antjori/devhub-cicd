@@ -81,4 +81,11 @@ public abstract class SpotifyElement {
          */
         private int width;
     }
+
+    /**
+     * Gets the element type.
+     * 
+     * @return the element type
+     */
+    public abstract String getElementType();
 }

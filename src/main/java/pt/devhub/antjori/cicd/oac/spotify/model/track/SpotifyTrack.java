@@ -13,6 +13,7 @@ import lombok.ToString;
 import pt.devhub.antjori.cicd.oac.spotify.model.SpotifyElement;
 import pt.devhub.antjori.cicd.oac.spotify.model.album.SpotifyAlbum;
 import pt.devhub.antjori.cicd.oac.spotify.model.artist.SpotifyArtist;
+import pt.devhub.antjori.cicd.oac.spotify.util.SpotifyElementType;
 
 /**
  * Mapping for Spotify's track item.
@@ -155,5 +156,13 @@ public class SpotifyTrack extends SpotifyElement {
          * The Spotify URI for the track.
          */
         private String uri;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getElementType() {
+        return SpotifyElementType.TRACK.getType();
     }
 }
