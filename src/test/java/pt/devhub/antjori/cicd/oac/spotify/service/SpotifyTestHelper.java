@@ -17,8 +17,11 @@ import pt.devhub.antjori.cicd.oac.spotify.model.artist.SpotifyArtist;
  */
 public final class SpotifyTestHelper {
 
-    @Value(value = "${oac.spotify.availableMarkets}")
+    @Value(value = "${oac.spotify.testContent.availableMarkets}")
     private List<String> availableMarkets;
+
+    @Value(value = "${oac.spotify.testContent.images}")
+    private List<Image> images;
 
     /**
      * Creates an instance of a {@link SpotifyAlbum} object.
@@ -92,26 +95,6 @@ public final class SpotifyTestHelper {
      *         object
      */
     public final List<Image> createImages() {
-        List<Image> images = new ArrayList<>();
-
-        Image image = new Image();
-        image.setHeight(640);
-        image.setUrl("https://i.scdn.co/image/c932b53e6f13a45f32bc357303c56eb52ecc28fb");
-        image.setWidth(640);
-        images.add(image);
-
-        Image imageMedium = new Image();
-        image.setHeight(300);
-        image.setUrl("https://i.scdn.co/image/706834f25e3b96ddc4643277e11333f0a8ca16c0");
-        image.setWidth(300);
-        images.add(imageMedium);
-
-        Image imageSmall = new Image();
-        image.setHeight(64);
-        image.setUrl("https://i.scdn.co/image/417cdd139d97eb8af3afe3f66fa14af1da331eec");
-        image.setWidth(64);
-        images.add(imageSmall);
-
-        return images;
+        return this.images;
     }
 }
