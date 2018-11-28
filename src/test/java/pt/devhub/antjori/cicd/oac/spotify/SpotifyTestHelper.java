@@ -1,4 +1,4 @@
-package pt.devhub.antjori.cicd.oac.spotify.service;
+package pt.devhub.antjori.cicd.oac.spotify;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -6,7 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import lombok.extern.slf4j.Slf4j;
 import pt.devhub.antjori.cicd.oac.spotify.model.SpotifyElement;
@@ -23,13 +24,11 @@ import pt.devhub.antjori.cicd.oac.spotify.model.track.SpotifyTracks;
  * Helper class to assist the tests of Spotify web API.
  */
 @Slf4j
+@Component
 public final class SpotifyTestHelper {
 
-    @Value(value = "${oac.spotify.testContent.availableMarkets}")
-    private List<String> availableMarkets;
-
-    @Value(value = "${oac.spotify.testContent.images}")
-    private List<Image> images;
+    @Autowired
+    private SpotifyTestContentConfig testContentConfig;
 
     /**
      * Creates an instance of a {@link SpotifyAlbum} object.
@@ -77,7 +76,7 @@ public final class SpotifyTestHelper {
      *         an available market
      */
     public final List<String> createAvailableMarkets() {
-        return this.availableMarkets;
+        return this.testContentConfig.getAvailableMarkets();
     }
 
     /**
@@ -103,7 +102,7 @@ public final class SpotifyTestHelper {
      *         object
      */
     public final List<Image> createImages() {
-        return this.images;
+        return this.testContentConfig.getImages();
     }
 
     /**
@@ -178,9 +177,9 @@ public final class SpotifyTestHelper {
         if (tClass.isAssignableFrom(SpotifyAlbum.class)) {
             element = (T) createSpotifyAlbum();
         } else if (tClass.isAssignableFrom(SpotifyArtist.class)) {
-            element = null;
+            element = (T) new SpotifyArtist();
         } else {
-            element = null;
+            element = (T) new SpotifyTrack();
         }
 
         return element;

@@ -1,15 +1,17 @@
 package pt.devhub.antjori.cicd.oac;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+import pt.devhub.antjori.cicd.oac.spotify.SpotifyTestHelper;
 import pt.devhub.antjori.cicd.oac.spotify.model.album.SpotifyAlbums;
 import pt.devhub.antjori.cicd.oac.spotify.model.artist.SpotifyArtists;
 import pt.devhub.antjori.cicd.oac.spotify.model.track.SpotifyTracks;
-import pt.devhub.antjori.cicd.oac.spotify.service.SpotifyTestHelper;
 
 /**
  * Helper class to assist the integration tests of OAC.
  */
+@Component
 public final class OpenApiCollectorTestHelper {
 
     @Autowired
