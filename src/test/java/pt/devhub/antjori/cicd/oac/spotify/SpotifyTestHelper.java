@@ -56,6 +56,28 @@ public final class SpotifyTestHelper {
     }
 
     /**
+     * Creates an instance of a {@link SpotifyArtist} object.
+     * 
+     * @return an instance of a {@link SpotifyArtist} object
+     */
+    public final SpotifyArtist createSpotifyArtist() {
+        SpotifyArtist artist = new SpotifyArtist();
+
+        return artist;
+    }
+
+    /**
+     * Creates an instance of a {@link SpotifyTrack} object.
+     * 
+     * @return an instance of a {@link SpotifyTrack} object
+     */
+    public final SpotifyTrack createSpotifyTrack() {
+        SpotifyTrack track = new SpotifyTrack();
+
+        return track;
+    }
+
+    /**
      * Creates a {@link List} containing at least an instance of
      * {@link SpotifyArtist} object.
      * 
@@ -177,9 +199,9 @@ public final class SpotifyTestHelper {
         if (tClass.isAssignableFrom(SpotifyAlbum.class)) {
             element = (T) createSpotifyAlbum();
         } else if (tClass.isAssignableFrom(SpotifyArtist.class)) {
-            element = (T) new SpotifyArtist();
+            element = (T) createSpotifyArtist();
         } else {
-            element = (T) new SpotifyTrack();
+            element = (T) createSpotifyTrack();
         }
 
         return element;
