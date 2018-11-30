@@ -32,6 +32,7 @@
         <maven-surefire-plugin.version>3.0.0-M1</maven-surefire-plugin.version>
 
         <!-- dependency versions -->
+        <commons-lang3.version>3.8.1</commons-lang3.version>
         <springfox.version>2.9.2</springfox.version>
     </properties>
 
@@ -90,6 +91,12 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <!-- miscellaneous -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${commons-lang3.version}</version>
         </dependency>
         <!-- test -->
         <dependency>

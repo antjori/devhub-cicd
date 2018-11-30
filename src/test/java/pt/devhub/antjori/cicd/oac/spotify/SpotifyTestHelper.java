@@ -19,6 +19,7 @@ import pt.devhub.antjori.cicd.oac.spotify.model.artist.SpotifyArtist;
 import pt.devhub.antjori.cicd.oac.spotify.model.artist.SpotifyArtists;
 import pt.devhub.antjori.cicd.oac.spotify.model.track.SpotifyTrack;
 import pt.devhub.antjori.cicd.oac.spotify.model.track.SpotifyTracks;
+import pt.devhub.antjori.cicd.oac.spotify.util.SpotifyElementType;
 
 /**
  * Helper class to assist the tests of Spotify web API.
@@ -41,7 +42,7 @@ public final class SpotifyTestHelper {
         album.setAlbumType("album");
         album.setArtists(createSpotifyArtistList());
         album.setAvailableMarkets(createAvailableMarkets());
-        album.setExternalUrls(createExternalUrls());
+        album.setExternalUrls(createExternalUrls(SpotifyElementType.ALBUM));
         album.setHref("https://api.spotify.com/v1/albums/3HNnxK7NgLXbDoxRZxNWiR");
         album.setId("3HNnxK7NgLXbDoxRZxNWiR");
         album.setImages(createImages());
@@ -63,6 +64,7 @@ public final class SpotifyTestHelper {
     public final SpotifyArtist createSpotifyArtist() {
         SpotifyArtist artist = new SpotifyArtist();
 
+        artist.setExternalUrls(createExternalUrls(SpotifyElementType.ARTIST));
         return artist;
     }
 
@@ -86,6 +88,7 @@ public final class SpotifyTestHelper {
      */
     public final List<SpotifyArtist> createSpotifyArtistList() {
         List<SpotifyArtist> artists = new ArrayList<>();
+        artists.add(createSpotifyArtist());
 
         return artists;
     }
@@ -108,10 +111,21 @@ public final class SpotifyTestHelper {
      * @return a key-value {@link Map} of {@link String} representing the external
      *         URLs
      */
-    public final Map<String, String> createExternalUrls() {
+    public final Map<String, String> createExternalUrls(final SpotifyElementType spotifyElementType) {
         Map<String, String> externalUrls = new HashMap<>();
+        String externalUrl = "";
 
-        externalUrls.put("spotify", "https://open.spotify.com/album/3HNnxK7NgLXbDoxRZxNWiR");
+        switch (spotifyElementType) {
+        case ALBUM:
+            externalUrl = "https://open.spotify.com/album/3HNnxK7NgLXbDoxRZxNWiR";
+            break;
+        case ARTIST:
+            break;
+        case TRACK:
+            break;
+        }
+
+        externalUrls.put("spotify", externalUrl);
 
         return externalUrls;
     }

@@ -16,7 +16,13 @@ import pt.devhub.antjori.cicd.oac.spotify.model.SpotifyElement.Image;
 @ConfigurationProperties(prefix = "oac.spotify.testContent")
 public class SpotifyTestContentConfig {
 
+    /**
+     * The list of available markets.
+     */
     private List<String> availableMarkets;
 
+    /**
+     * The list of images.
+     */
     private List<Image> images;
 }
