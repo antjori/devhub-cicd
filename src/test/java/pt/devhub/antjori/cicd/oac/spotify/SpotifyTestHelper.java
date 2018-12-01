@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -113,15 +114,19 @@ public final class SpotifyTestHelper {
      */
     public final Map<String, String> createExternalUrls(final SpotifyElementType spotifyElementType) {
         Map<String, String> externalUrls = new HashMap<>();
-        String externalUrl = "";
+        String externalUrl = StringUtils.EMPTY;
 
         switch (spotifyElementType) {
         case ALBUM:
             externalUrl = "https://open.spotify.com/album/3HNnxK7NgLXbDoxRZxNWiR";
             break;
         case ARTIST:
+            externalUrl = "https://open.spotify.com/artist/7dGJo4pcD2V6oG8kP0tJRR";
             break;
         case TRACK:
+            externalUrl = "https://open.spotify.com/track/60SdxE8apGAxMiRrpbmLY0";
+            break;
+        default:
             break;
         }
 
