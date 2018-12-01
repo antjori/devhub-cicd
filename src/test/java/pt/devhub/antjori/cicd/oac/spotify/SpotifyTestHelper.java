@@ -17,6 +17,7 @@ import pt.devhub.antjori.cicd.oac.spotify.model.SpotifyPagingObject;
 import pt.devhub.antjori.cicd.oac.spotify.model.album.SpotifyAlbum;
 import pt.devhub.antjori.cicd.oac.spotify.model.album.SpotifyAlbums;
 import pt.devhub.antjori.cicd.oac.spotify.model.artist.SpotifyArtist;
+import pt.devhub.antjori.cicd.oac.spotify.model.artist.SpotifyArtist.Followers;
 import pt.devhub.antjori.cicd.oac.spotify.model.artist.SpotifyArtists;
 import pt.devhub.antjori.cicd.oac.spotify.model.track.SpotifyTrack;
 import pt.devhub.antjori.cicd.oac.spotify.model.track.SpotifyTracks;
@@ -46,7 +47,7 @@ public final class SpotifyTestHelper {
         album.setExternalUrls(createExternalUrls(SpotifyElementType.ALBUM));
         album.setHref("https://api.spotify.com/v1/albums/3HNnxK7NgLXbDoxRZxNWiR");
         album.setId("3HNnxK7NgLXbDoxRZxNWiR");
-        album.setImages(createImages());
+        album.setImages(createImages(SpotifyElementType.ALBUM));
         album.setName("Kamikaze");
         album.setReleaseDate(LocalDate.now());
         album.setReleaseDatePrecision("day");
@@ -66,7 +67,31 @@ public final class SpotifyTestHelper {
         SpotifyArtist artist = new SpotifyArtist();
 
         artist.setExternalUrls(createExternalUrls(SpotifyElementType.ARTIST));
+        artist.setFollowers(createFollowers());
+        artist.setGenres(this.testContentConfig.getGenres());
+        artist.setHref("https://api.spotify.com/v1/artists/7dGJo4pcD2V6oG8kP0tJRR");
+        artist.setId("7dGJo4pcD2V6oG8kP0tJRR");
+        artist.setImages(createImages(SpotifyElementType.ARTIST));
+        artist.setName("Eminem");
+        artist.setPopularity(96);
+        artist.setType(SpotifyElementType.ARTIST.getType());
+        artist.setUri("spotify:artist:7dGJo4pcD2V6oG8kP0tJRR");
+
         return artist;
+    }
+
+    /**
+     * Creates an instance of {@link Followers} object.
+     * 
+     * @return an instance of {@link Followers} object
+     */
+    private final Followers createFollowers() {
+        Followers followers = new Followers();
+
+        followers.setHref(null);
+        followers.setTotal(22050143);
+
+        return followers;
     }
 
     /**
@@ -89,6 +114,7 @@ public final class SpotifyTestHelper {
      */
     public final List<SpotifyArtist> createSpotifyArtistList() {
         List<SpotifyArtist> artists = new ArrayList<>();
+
         artists.add(createSpotifyArtist());
 
         return artists;
@@ -142,8 +168,23 @@ public final class SpotifyTestHelper {
      * @return a {@link List} containing at least an instance of {@link Image}
      *         object
      */
-    public final List<Image> createImages() {
-        return this.testContentConfig.getImages();
+    public final List<Image> createImages(final SpotifyElementType spotifyElementType) {
+        List<Image> images = null;
+
+        switch (spotifyElementType) {
+        case ALBUM:
+            images = this.testContentConfig.getAlbumImages();
+            break;
+        case ARTIST:
+            images = this.testContentConfig.getArtistImages();
+            break;
+        case TRACK:
+            break;
+        default:
+            break;
+        }
+
+        return images;
     }
 
     /**

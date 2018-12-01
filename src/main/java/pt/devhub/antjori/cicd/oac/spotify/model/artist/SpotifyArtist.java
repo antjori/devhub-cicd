@@ -42,7 +42,7 @@ public class SpotifyArtist extends SpotifyElement {
     @Data
     @ToString
     @JsonInclude(value = Include.NON_NULL)
-    private static final class Followers {
+    public static final class Followers {
 
         /**
          * A link to the Web API endpoint providing full details of the followers.

@@ -120,7 +120,7 @@ oac:
         - UY
         - VN
         - ZA
-      images:
+      albumImages:
         -
           height: 640
           url: https://i.scdn.co/image/c932b53e6f13a45f32bc357303c56eb52ecc28fb
@@ -133,6 +133,24 @@ oac:
           height: 64
           url: https://i.scdn.co/image/417cdd139d97eb8af3afe3f66fa14af1da331eec
           width: 64
+      genres:
+        - detroit hip hop
+        - g funk
+        - hip hop
+        - rap
+      artistImages:
+        -
+          height: 640
+          url: https://i.scdn.co/image/60c4daa4721f666c6afaee82a39bd413979a0474
+          width: 640
+        -
+          height: 320
+          url: https://i.scdn.co/image/ae8dd3b01ada324eeb8c0b341e8f7ebda406095e
+          width: 320
+        -
+          height: 160
+          url: https://i.scdn.co/image/ed213a32e1327f3f2d7b2539eb1db57f55b68dbb
+          width: 160
   youtube:
     credentials:
       clientSecret: 

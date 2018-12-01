@@ -22,7 +22,17 @@ public class SpotifyTestContentConfig {
     private List<String> availableMarkets;
 
     /**
-     * The list of images.
+     * The list of album images.
      */
-    private List<Image> images;
+    private List<Image> albumImages;
+
+    /**
+     * The list of genres.
+     */
+    private List<String> genres;
+
+    /**
+     * The list of artist images.
+     */
+    private List<Image> artistImages;
 }
