@@ -52,7 +52,7 @@ public final class SpotifyTestHelper {
         album.setReleaseDate(LocalDate.now());
         album.setReleaseDatePrecision("day");
         album.setTotalTracks(13);
-        album.setType("album");
+        album.setType(SpotifyElementType.ALBUM.getType());
         album.setUri("spotify:album:3HNnxK7NgLXbDoxRZxNWiR");
 
         return album;
@@ -101,6 +101,17 @@ public final class SpotifyTestHelper {
      */
     public final SpotifyTrack createSpotifyTrack() {
         SpotifyTrack track = new SpotifyTrack();
+
+        track.setAlbum(createSpotifyAlbum());
+        track.setArtists(createSpotifyArtistList());
+        track.setAvailableMarkets(createAvailableMarkets());
+        track.setDiscNumber(1);
+        track.setDurationMs(244679);
+        track.setExplicit(true);
+        Map<String, String> externalIds = new HashMap<>();
+        externalIds.put("isrc", "USUM71813334");
+        track.setExternalIDs(externalIds);
+        track.setExternalUrls(createExternalUrls(SpotifyElementType.TRACK));
 
         return track;
     }
