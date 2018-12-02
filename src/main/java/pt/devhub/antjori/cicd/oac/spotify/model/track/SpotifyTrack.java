@@ -108,7 +108,7 @@ public class SpotifyTrack extends SpotifyElement {
      * A link to a 30 second preview (MP3 format) of the track. Can be null
      */
     @JsonProperty(value = "preview_url")
-    private String previewURL;
+    private String previewUrl;
 
     /**
      * The number of the track. If an album has several discs, the track number is

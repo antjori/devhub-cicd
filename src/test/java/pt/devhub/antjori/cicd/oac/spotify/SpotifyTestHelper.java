@@ -112,6 +112,15 @@ public final class SpotifyTestHelper {
         externalIds.put("isrc", "USUM71813334");
         track.setExternalIDs(externalIds);
         track.setExternalUrls(createExternalUrls(SpotifyElementType.TRACK));
+        track.setHref("https://api.spotify.com/v1/tracks/60SdxE8apGAxMiRrpbmLY0");
+        track.setId("60SdxE8apGAxMiRrpbmLY0");
+        track.setLocal(false);
+        track.setName("Lucky You (feat. Joyner Lucas)");
+        track.setPopularity(90);
+        track.setPreviewUrl(null);
+        track.setTrackNumber(3);
+        track.setType(SpotifyElementType.TRACK.getType());
+        track.setUri("spotify:track:60SdxE8apGAxMiRrpbmLY0");
 
         return track;
     }
@@ -249,13 +258,15 @@ public final class SpotifyTestHelper {
 
             pagingObj = sClass.newInstance();
             pagingObj.setHref("https://api.spotify.com/v1/search?query=Eminem&type=" + element.getElementType()
-                    + "&offset=0&limit=20");
+                    + "&offset=20&limit=20");
             pagingObj.setItems(items);
             pagingObj.setLimit(20);
-            pagingObj.setNext(null);
+            pagingObj.setNext("https://api.spotify.com/v1/search?query=Eminem&type=" + element.getElementType()
+                    + "&offset=40&limit=20");
             pagingObj.setOffset(0);
-            pagingObj.setPrevious(null);
-            pagingObj.setTotal(-1);
+            pagingObj.setPrevious("https://api.spotify.com/v1/search?query=Eminem&type=" + element.getElementType()
+                    + "&offset=0&limit=20");
+            pagingObj.setTotal(Short.MAX_VALUE);
         } catch (InstantiationException | IllegalAccessException e) {
             log.error("An error occurred while creating a Spotify element", e);
         }
