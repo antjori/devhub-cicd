@@ -8,6 +8,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,6 +33,7 @@ import pt.devhub.antjori.cicd.oac.OpenApiCollectorApplication;
 import pt.devhub.antjori.cicd.oac.OpenApiCollectorTestHelper;
 import pt.devhub.antjori.cicd.oac.spotify.model.response.SpotifySearchResponse;
 import pt.devhub.antjori.cicd.oac.spotify.service.SpotifyService;
+import pt.devhub.antjori.cicd.oac.spotify.util.SpotifyElementType;
 
 /**
  * Test class for {@link OpenApiCollectorControllerV1} where will be depicted
@@ -76,7 +80,7 @@ public class OpenApiCollectorControllerV1IT {
         MockHttpServletRequestBuilder get = get(REQUEST_MAPPING + "/api/spotify")
                 .header(HttpHeaders.AUTHORIZATION,
                         "Basic " + Base64Utils.encodeToString((user + ":" + password).getBytes()))
-                .param("q", "Eminem").param("type", "album");
+                .param("q", "Eminem").param("type", SpotifyElementType.ALBUM.getType());
 
         SpotifySearchResponse response = new SpotifySearchResponse();
         response.setAlbums(this.testHelper.createSpotifyAlbums());
@@ -99,7 +103,7 @@ public class OpenApiCollectorControllerV1IT {
         MockHttpServletRequestBuilder get = get(REQUEST_MAPPING + "/api/spotify")
                 .header(HttpHeaders.AUTHORIZATION,
                         "Basic " + Base64Utils.encodeToString((user + ":" + password).getBytes()))
-                .param("q", "Eminem").param("type", "artist");
+                .param("q", "Eminem").param("type", SpotifyElementType.ARTIST.getType());
 
         SpotifySearchResponse response = new SpotifySearchResponse();
         response.setArtists(this.testHelper.createSpotifyArtists());
@@ -122,7 +126,7 @@ public class OpenApiCollectorControllerV1IT {
         MockHttpServletRequestBuilder get = get(REQUEST_MAPPING + "/api/spotify")
                 .header(HttpHeaders.AUTHORIZATION,
                         "Basic " + Base64Utils.encodeToString((user + ":" + password).getBytes()))
-                .param("q", "Eminem").param("type", "track");
+                .param("q", "Eminem").param("type", SpotifyElementType.TRACK.getType());
 
         SpotifySearchResponse response = new SpotifySearchResponse();
         response.setTracks(this.testHelper.createSpotifyTracks());
@@ -137,5 +141,47 @@ public class OpenApiCollectorControllerV1IT {
         resultActions.andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON_UTF8_VALUE));
         resultActions.andExpect(jsonPath("$").exists());
         resultActions.andExpect(jsonPath("$.tracks").exists());
+    }
+
+    @Test
+    public void testSearchSpotify_WithoutParams() throws Exception {
+        // given
+        MockHttpServletRequestBuilder get = get(REQUEST_MAPPING + "/api/spotify").header(HttpHeaders.AUTHORIZATION,
+                "Basic " + Base64Utils.encodeToString((user + ":" + password).getBytes()));
+
+        // when
+        ResultActions resultActions = mvc.perform(get).andDo(print());
+
+        // then
+        resultActions.andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void testSearchSpotify_WithoutQ() throws Exception {
+        // given
+        String type = Arrays.asList(SpotifyElementType.values()).stream().map(x -> x.getType())
+                .collect(Collectors.joining(","));
+
+        MockHttpServletRequestBuilder get = get(REQUEST_MAPPING + "/api/spotify").header(HttpHeaders.AUTHORIZATION,
+                "Basic " + Base64Utils.encodeToString((user + ":" + password).getBytes())).param("type", type);
+
+        // when
+        ResultActions resultActions = mvc.perform(get).andDo(print());
+
+        // then
+        resultActions.andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void testSearchSpotify_WithoutType() throws Exception {
+        // given
+        MockHttpServletRequestBuilder get = get(REQUEST_MAPPING + "/api/spotify").header(HttpHeaders.AUTHORIZATION,
+                "Basic " + Base64Utils.encodeToString((user + ":" + password).getBytes())).param("q", "Eminem");
+
+        // when
+        ResultActions resultActions = mvc.perform(get).andDo(print());
+
+        // then
+        resultActions.andExpect(status().isBadRequest());
     }
 }
