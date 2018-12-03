@@ -11,7 +11,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,11 +67,6 @@ public class OpenApiCollectorControllerV1IT {
     // =======
     // SPOTIFY
     // =======
-
-    @Before
-    public void setup() {
-
-    }
 
     @Test
     public void testSearchSpotifyAlbums() throws Exception {
