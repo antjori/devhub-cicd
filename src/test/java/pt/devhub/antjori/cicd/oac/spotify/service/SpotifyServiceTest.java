@@ -9,6 +9,8 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.web.client.RestTemplate;
 
+import pt.devhub.antjori.cicd.oac.spotify.model.ClientCredentials;
+
 /**
  * Test class for {@link SpotifyService} where will be depicted the classe's
  * unit tests.
@@ -21,6 +23,9 @@ public class SpotifyServiceTest {
 
     @Mock
     private RestTemplate restTemplate;
+
+    @Mock
+    private ClientCredentials clientCredentials;
 
     @Before
     public void setup() {
