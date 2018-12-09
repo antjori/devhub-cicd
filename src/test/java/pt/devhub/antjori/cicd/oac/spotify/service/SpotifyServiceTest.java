@@ -16,7 +16,20 @@ public class SpotifyServiceTest {
     private SpotifyService spotifyService;
 
     @Test
-    public void testSearch() {
-        // Implement me
+    public void testSearch_withoutCredentials() {
+        // given
+
+        // when
+
+        // then
+    }
+
+    @Test
+    public void testSearch_withCredentials() {
+        // given
+
+        // when
+
+        // then
     }
 }
