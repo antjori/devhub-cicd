@@ -33,6 +33,9 @@ public class SpotifyService {
     @Autowired
     private SpotifyConfig spotifyConfig;
 
+    @Autowired
+    private RestTemplate restTemplate;
+
     /**
      * Searches Spotify's database taking into account the query and the type passed
      * as arguments.
@@ -51,8 +54,6 @@ public class SpotifyService {
 
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", "Bearer " + this.clientCredentials.getAccessToken());
-
-        RestTemplate restTemplate = new RestTemplate();
 
         ResponseEntity<SpotifySearchResponse> response = restTemplate.exchange(
                 this.spotifyConfig.getSearchUrl().getUrl(), this.spotifyConfig.getSearchUrl().getType(),
@@ -73,8 +74,6 @@ public class SpotifyService {
         map.add(WebAPIConstants.GRANT_TYPE, WebAPIConstants.CLIENT_CREDENTIALS);
 
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(map, headers);
-
-        RestTemplate restTemplate = new RestTemplate();
 
         restTemplate.getInterceptors()
                 .add(new BasicAuthorizationInterceptor(
