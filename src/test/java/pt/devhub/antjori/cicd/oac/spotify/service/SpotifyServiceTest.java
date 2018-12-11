@@ -20,6 +20,7 @@ import org.mockito.MockitoAnnotations;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -43,6 +44,9 @@ public class SpotifyServiceTest {
 
     @InjectMocks
     private SpotifyService spotifyService;
+
+    @Mock
+    private RestTemplateBuilder restTemplateBuilder;
 
     @Mock
     private RestTemplate restTemplate;
