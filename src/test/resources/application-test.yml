@@ -32,8 +32,8 @@ springfox:
 oac:
   spotify:
     credentials:
-      clientId: 
-      clientSecret: 
+      clientId: clientId
+      clientSecret: clientSecret
     tokenUrl:
       type: POST
       url: https://accounts.spotify.com/api/token

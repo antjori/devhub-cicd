@@ -1,6 +1,8 @@
 package pt.devhub.antjori.cicd.oac.api;
 
+import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
+import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -11,27 +13,37 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.util.Base64Utils;
+import org.springframework.web.client.RestTemplate;
 
 import pt.devhub.antjori.cicd.oac.OpenApiCollectorApplication;
 import pt.devhub.antjori.cicd.oac.OpenApiCollectorTestHelper;
+import pt.devhub.antjori.cicd.oac.spotify.model.ClientCredentials;
 import pt.devhub.antjori.cicd.oac.spotify.model.response.SpotifySearchResponse;
-import pt.devhub.antjori.cicd.oac.spotify.service.SpotifyService;
 import pt.devhub.antjori.cicd.oac.spotify.util.SpotifyElementType;
 
 /**
@@ -39,7 +51,8 @@ import pt.devhub.antjori.cicd.oac.spotify.util.SpotifyElementType;
  * the integration tests.
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT, classes = OpenApiCollectorApplication.class)
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT, classes = { OpenApiCollectorApplication.class,
+        OpenApiCollectorControllerV1IT.ContextConfiguration.class })
 @AutoConfigureMockMvc
 @ActiveProfiles(value = "test")
 public class OpenApiCollectorControllerV1IT {
@@ -61,8 +74,41 @@ public class OpenApiCollectorControllerV1IT {
     @Autowired
     private OpenApiCollectorTestHelper testHelper;
 
-    @MockBean
-    private SpotifyService spotifyService;
+    @Autowired
+    private TestRestTemplate testRestTemplate;
+
+    @Mock
+    private ResponseEntity<ClientCredentials> clientCredentialsResponseEntity;
+
+    @Mock
+    private ClientCredentials clientCredentials;
+
+    @Mock
+    private ResponseEntity<SpotifySearchResponse> spotifySearchResponseEntity;
+
+    @Before
+    public void setup() {
+        when(clientCredentials.getAccessToken())
+                .thenReturn("BQBkcbGl9poui2Cp-_2S3P_n2gA1-ImfTqyI2SFzc8sKa7q0tKfcqipake2f46C4bZXp40kZnSus-Ajey4E");
+    }
+
+    /**
+     * Specific ITs configuration in order to mock {@link RestTemplateBuilder} and
+     * {@link RestTemplate} interactions.
+     */
+    @Configuration
+    static class ContextConfiguration {
+        @Bean
+        public RestTemplateBuilder restTemplateBuilder() {
+
+            RestTemplateBuilder rtb = Mockito.mock(RestTemplateBuilder.class);
+            RestTemplate restTemplate = Mockito.mock(RestTemplate.class);
+
+            when(rtb.build()).thenReturn(restTemplate);
+
+            return rtb;
+        }
+    }
 
     // =======
     // SPOTIFY
@@ -76,10 +122,16 @@ public class OpenApiCollectorControllerV1IT {
                         "Basic " + Base64Utils.encodeToString((user + ":" + password).getBytes()))
                 .param("q", "Eminem").param("type", SpotifyElementType.ALBUM.getType());
 
-        SpotifySearchResponse response = new SpotifySearchResponse();
-        response.setAlbums(this.testHelper.createSpotifyAlbums());
+        SpotifySearchResponse spotifySearchResponse = new SpotifySearchResponse();
+        spotifySearchResponse.setAlbums(this.testHelper.createSpotifyAlbums());
 
-        when(spotifyService.search(anyString(), anyString())).thenReturn(response);
+        // Mocking call to Spotify
+        when(testRestTemplate.getRestTemplate().exchange(anyString(), any(HttpMethod.class), any(HttpEntity.class),
+                eq(ClientCredentials.class))).thenReturn(clientCredentialsResponseEntity);
+        when(clientCredentialsResponseEntity.getBody()).thenReturn(clientCredentials);
+        when(testRestTemplate.getRestTemplate().exchange(anyString(), any(HttpMethod.class), any(HttpEntity.class),
+                eq(SpotifySearchResponse.class), anyString(), anyString())).thenReturn(spotifySearchResponseEntity);
+        when(spotifySearchResponseEntity.getBody()).thenReturn(spotifySearchResponse);
 
         // when
         ResultActions resultActions = mvc.perform(get).andDo(print());
@@ -99,10 +151,16 @@ public class OpenApiCollectorControllerV1IT {
                         "Basic " + Base64Utils.encodeToString((user + ":" + password).getBytes()))
                 .param("q", "Eminem").param("type", SpotifyElementType.ARTIST.getType());
 
-        SpotifySearchResponse response = new SpotifySearchResponse();
-        response.setArtists(this.testHelper.createSpotifyArtists());
+        SpotifySearchResponse spotifySearchResponse = new SpotifySearchResponse();
+        spotifySearchResponse.setArtists(this.testHelper.createSpotifyArtists());
 
-        when(spotifyService.search(anyString(), anyString())).thenReturn(response);
+        // Mocking call to Spotify
+        when(testRestTemplate.getRestTemplate().exchange(anyString(), any(HttpMethod.class), any(HttpEntity.class),
+                eq(ClientCredentials.class))).thenReturn(clientCredentialsResponseEntity);
+        when(clientCredentialsResponseEntity.getBody()).thenReturn(clientCredentials);
+        when(testRestTemplate.getRestTemplate().exchange(anyString(), any(HttpMethod.class), any(HttpEntity.class),
+                eq(SpotifySearchResponse.class), anyString(), anyString())).thenReturn(spotifySearchResponseEntity);
+        when(spotifySearchResponseEntity.getBody()).thenReturn(spotifySearchResponse);
 
         // when
         ResultActions resultActions = mvc.perform(get).andDo(print());
@@ -122,10 +180,16 @@ public class OpenApiCollectorControllerV1IT {
                         "Basic " + Base64Utils.encodeToString((user + ":" + password).getBytes()))
                 .param("q", "Eminem").param("type", SpotifyElementType.TRACK.getType());
 
-        SpotifySearchResponse response = new SpotifySearchResponse();
-        response.setTracks(this.testHelper.createSpotifyTracks());
+        SpotifySearchResponse spotifySearchResponse = new SpotifySearchResponse();
+        spotifySearchResponse.setTracks(this.testHelper.createSpotifyTracks());
 
-        when(spotifyService.search(anyString(), anyString())).thenReturn(response);
+        // Mocking call to Spotify
+        when(testRestTemplate.getRestTemplate().exchange(anyString(), any(HttpMethod.class), any(HttpEntity.class),
+                eq(ClientCredentials.class))).thenReturn(clientCredentialsResponseEntity);
+        when(clientCredentialsResponseEntity.getBody()).thenReturn(clientCredentials);
+        when(testRestTemplate.getRestTemplate().exchange(anyString(), any(HttpMethod.class), any(HttpEntity.class),
+                eq(SpotifySearchResponse.class), anyString(), anyString())).thenReturn(spotifySearchResponseEntity);
+        when(spotifySearchResponseEntity.getBody()).thenReturn(spotifySearchResponse);
 
         // when
         ResultActions resultActions = mvc.perform(get).andDo(print());

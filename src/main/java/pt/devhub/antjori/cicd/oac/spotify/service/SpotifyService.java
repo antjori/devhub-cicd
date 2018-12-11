@@ -2,6 +2,7 @@ package pt.devhub.antjori.cicd.oac.spotify.service;
 
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -13,7 +14,6 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.client.RestTemplate;
 
-import lombok.RequiredArgsConstructor;
 import pt.devhub.antjori.cicd.oac.spotify.config.SpotifyConfig;
 import pt.devhub.antjori.cicd.oac.spotify.model.ClientCredentials;
 import pt.devhub.antjori.cicd.oac.spotify.model.response.SpotifySearchResponse;
@@ -23,7 +23,6 @@ import pt.devhub.antjori.cicd.oac.spotify.util.WebAPIConstants;
  * The service that allows the communication with Spotify Web API.
  */
 @Service
-@RequiredArgsConstructor
 public class SpotifyService {
 
     // The client credentials.
@@ -33,8 +32,16 @@ public class SpotifyService {
     @Autowired
     private SpotifyConfig spotifyConfig;
 
-    @Autowired
     private RestTemplate restTemplate;
+
+    /**
+     * Default class constructor.
+     * 
+     * @param restTemplateBuilder the REST template builder
+     */
+    public SpotifyService(final RestTemplateBuilder restTemplateBuilder) {
+        this.restTemplate = restTemplateBuilder.build();
+    }
 
     /**
      * Searches Spotify's database taking into account the query and the type passed
