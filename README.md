@@ -1,6 +1,7 @@
 # CI/CD - Open API Collector
 
 [![CircleCI](https://circleci.com/gh/antjori/devhub-cicd.svg?style=svg)](https://circleci.com/gh/antjori/devhub-cicd)
+[![Travis CI](https://travis-ci.org/antjori/devhub-cicd.svg?branch=master)
 
 The repository for an example application using CI/CD approach.
 
