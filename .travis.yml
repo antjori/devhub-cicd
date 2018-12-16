@@ -1,5 +1,11 @@
 language: java
 jdk: oraclejdk8
 
+env:
+  global:
+
+addons:
+  sonarcloud:
+
 script:
 - mvn clean install -B
