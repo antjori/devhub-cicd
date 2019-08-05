@@ -18,6 +18,10 @@
     <name>Open API Collector</name>
     <description>Example application using CI/CD approach.</description>
 
+    <prerequisites>
+        <maven>3.3.9</maven>
+    </prerequisites>
+
     <properties>
         <!-- encoding -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
