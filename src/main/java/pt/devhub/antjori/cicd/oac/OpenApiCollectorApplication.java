@@ -1,15 +1,15 @@
 package pt.devhub.antjori.cicd.oac;
 
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.context.annotation.ComponentScan;
 
 /**
  * The bootstrap (base) application that will trigger Spring Boot.
  */
-@SpringBootApplication(scanBasePackages = "pt.devhub.antjori.cicd.oac")
+@SpringBootApplication
+@ComponentScan(basePackages = "pt.devhub.antjori.cicd.oac")
 public class OpenApiCollectorApplication {
 
-    public static void main(String[] args) {
-        new SpringApplicationBuilder(OpenApiCollectorApplication.class).run(args);
-    }
+    public static void main(String[] args) { SpringApplication.run(OpenApiCollectorApplication.class, args); }
 }

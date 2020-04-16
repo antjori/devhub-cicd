@@ -40,7 +40,7 @@ oac:
     searchUrl:
       type: GET
       url: https://api.spotify.com/v1/search?q={query}&type={type}
-    testContent:
+    test-content:
       availableMarkets:
         - AD
         - AE

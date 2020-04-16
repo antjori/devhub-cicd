@@ -30,10 +30,10 @@ public class OpenApiCollectorControllerV1 {
      *
      * @return a {@link String} object saying Spotify
      */
-    @ApiOperation(value = "Retrive a simple string saying Spotify")
+    @ApiOperation(value = "Queries Spotify based on the specified query and type")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successfully called Spotify's API", response = SpotifySearchResponse.class) })
-    @GetMapping(value = "/api/spotify", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @GetMapping(value = "/api/spotify", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<SpotifySearchResponse> searchSpotify(
             @RequestParam(value = "q", required = true) final String query,
             @RequestParam(required = true) final String type) {

@@ -2,6 +2,7 @@ package pt.devhub.antjori.cicd.oac.api;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +19,12 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.ActiveProfiles;
+import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
+import org.springframework.test.web.servlet.request.RequestPostProcessor;
 import org.springframework.util.Base64Utils;
 import org.springframework.web.client.RestTemplate;
 import pt.devhub.antjori.cicd.oac.OpenApiCollectorApplication;
@@ -48,7 +51,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * the integration tests.
  */
 @AutoConfigureMockMvc
-@ActiveProfiles(value = "test")
+@ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT, classes = { OpenApiCollectorApplication.class, OpenApiCollectorControllerV1IT.ContextConfiguration.class })
 public class OpenApiCollectorControllerV1IT {
 
@@ -57,10 +60,10 @@ public class OpenApiCollectorControllerV1IT {
      */
     private static final String REQUEST_MAPPING = "/oac/v1";
 
-    @Value(value = "${security.user.name}")
+    @Value(value = "${spring.security.user.name}")
     private String user;
 
-    @Value(value = "${security.user.password}")
+    @Value(value = "${spring.security.user.password}")
     private String password;
 
     @Autowired
@@ -105,6 +108,10 @@ public class OpenApiCollectorControllerV1IT {
         }
     }
 
+    private RequestPostProcessor httpBasic() {
+        return SecurityMockMvcRequestPostProcessors.httpBasic(this.user, this.password);
+    }
+
     // =======
     // SPOTIFY
     // =======
@@ -112,10 +119,9 @@ public class OpenApiCollectorControllerV1IT {
     @Test
     public void testSearchSpotifyAlbums() throws Exception {
         // given
-        MockHttpServletRequestBuilder get = get(REQUEST_MAPPING + "/api/spotify")
-                .header(HttpHeaders.AUTHORIZATION,
-                        "Basic " + Base64Utils.encodeToString((user + ":" + password).getBytes()))
-                .param("q", "Eminem").param("type", SpotifyElementType.ALBUM.getType());
+        MockHttpServletRequestBuilder get = get(REQUEST_MAPPING + "/api/spotify").with(httpBasic());
+        get.param("q", "Eminem");
+        get.param("type", SpotifyElementType.ALBUM.getType());
 
         SpotifySearchResponse spotifySearchResponse = new SpotifySearchResponse();
         spotifySearchResponse.setAlbums(this.testHelper.createSpotifyAlbums());
@@ -133,7 +139,7 @@ public class OpenApiCollectorControllerV1IT {
 
         // then
         resultActions.andExpect(status().isOk());
-        resultActions.andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON_UTF8_VALUE));
+        resultActions.andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON_VALUE));
         resultActions.andExpect(jsonPath("$").exists());
         resultActions.andExpect(jsonPath("$.albums").exists());
     }
@@ -141,10 +147,9 @@ public class OpenApiCollectorControllerV1IT {
     @Test
     public void testSearchSpotifyArtists() throws Exception {
         // given
-        MockHttpServletRequestBuilder get = get(REQUEST_MAPPING + "/api/spotify")
-                .header(HttpHeaders.AUTHORIZATION,
-                        "Basic " + Base64Utils.encodeToString((user + ":" + password).getBytes()))
-                .param("q", "Eminem").param("type", SpotifyElementType.ARTIST.getType());
+        MockHttpServletRequestBuilder get = get(REQUEST_MAPPING + "/api/spotify").with(httpBasic());
+        get.param("q", "Eminem");
+        get.param("type", SpotifyElementType.ARTIST.getType());
 
         SpotifySearchResponse spotifySearchResponse = new SpotifySearchResponse();
         spotifySearchResponse.setArtists(this.testHelper.createSpotifyArtists());
@@ -162,7 +167,7 @@ public class OpenApiCollectorControllerV1IT {
 
         // then
         resultActions.andExpect(status().isOk());
-        resultActions.andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON_UTF8_VALUE));
+        resultActions.andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON_VALUE));
         resultActions.andExpect(jsonPath("$").exists());
         resultActions.andExpect(jsonPath("$.artists").exists());
     }
