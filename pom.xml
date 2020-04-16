@@ -31,14 +31,11 @@
         <!-- plug-in versions -->
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <maven-failsafe-plugin.version>2.22.2</maven-failsafe-plugin.version>
-        <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
 
         <jacoco-maven-plugin.version>0.8.5</jacoco-maven-plugin.version>
 
         <!-- dependency versions -->
         <commons-lang3.version>3.10</commons-lang3.version>
-        <powermock-junit5.version>1.6.4</powermock-junit5.version>
-        <powermock-api.version>1.7.4</powermock-api.version>
         <springfox.version>2.9.2</springfox.version>
     </properties>
 
@@ -92,10 +89,6 @@
                 <configuration>
                     <argLine>-Dspring.profiles.active=it</argLine>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
             </plugin>
             <plugin>
                 <groupId>org.jacoco</groupId>

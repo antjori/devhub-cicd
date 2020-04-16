@@ -1,31 +1,10 @@
-spring:
-  application:
-    name: open-api-collector
-
-server:
-  port: 5100
-
 # Actuator
-security:
-  basic:
-    enabled: true
-  user:
-    name: oac-user
-    password: password
-
-management:
-  contextPath: /admin
-  port: 5101
+spring:
   security:
-    enabled: true
+    user:
+      name: oac-user
+      password: password
 
-# Swagger
-springfox:
-  documentation:
-    swagger:
-      v2:
-        path: /docs/api
-        
 # APIs
 
 # Spotify
