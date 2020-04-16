@@ -8,8 +8,8 @@ The repository for an example application using CI/CD approach.
 This application is using the following technological stack:
 
 * Maven
-* Java 8
-* Spring Boot 1.5.X
+* Java 11
+* Spring Boot 2.2.x
 
 Currently used APIs:
 
