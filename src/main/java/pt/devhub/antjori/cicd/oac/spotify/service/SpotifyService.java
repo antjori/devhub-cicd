@@ -7,13 +7,12 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.client.support.BasicAuthorizationInterceptor;
+import org.springframework.http.client.support.BasicAuthenticationInterceptor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.client.RestTemplate;
-
 import pt.devhub.antjori.cicd.oac.spotify.config.SpotifyConfig;
 import pt.devhub.antjori.cicd.oac.spotify.model.ClientCredentials;
 import pt.devhub.antjori.cicd.oac.spotify.model.response.SpotifySearchResponse;
@@ -83,7 +82,7 @@ public class SpotifyService {
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(map, headers);
 
         restTemplate.getInterceptors()
-                .add(new BasicAuthorizationInterceptor(
+                .add(new BasicAuthenticationInterceptor(
                         new String(Base64.decodeBase64(this.spotifyConfig.getCredentials().getClientId())),
                         new String(Base64.decodeBase64(this.spotifyConfig.getCredentials().getClientSecret()))));
 

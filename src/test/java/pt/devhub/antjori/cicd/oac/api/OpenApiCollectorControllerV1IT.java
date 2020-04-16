@@ -1,21 +1,7 @@
 package pt.devhub.antjori.cicd.oac.api;
 
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import java.util.Arrays;
-import java.util.stream.Collectors;
-
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,28 +19,37 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.util.Base64Utils;
 import org.springframework.web.client.RestTemplate;
-
 import pt.devhub.antjori.cicd.oac.OpenApiCollectorApplication;
 import pt.devhub.antjori.cicd.oac.OpenApiCollectorTestHelper;
 import pt.devhub.antjori.cicd.oac.spotify.model.ClientCredentials;
 import pt.devhub.antjori.cicd.oac.spotify.model.response.SpotifySearchResponse;
 import pt.devhub.antjori.cicd.oac.spotify.util.SpotifyElementType;
 
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 /**
  * Test class for {@link OpenApiCollectorControllerV1} where will be depicted
  * the integration tests.
  */
-@RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT, classes = { OpenApiCollectorApplication.class,
-        OpenApiCollectorControllerV1IT.ContextConfiguration.class })
 @AutoConfigureMockMvc
 @ActiveProfiles(value = "test")
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT, classes = { OpenApiCollectorApplication.class, OpenApiCollectorControllerV1IT.ContextConfiguration.class })
 public class OpenApiCollectorControllerV1IT {
 
     /**
@@ -86,7 +81,7 @@ public class OpenApiCollectorControllerV1IT {
     @Mock
     private ResponseEntity<SpotifySearchResponse> spotifySearchResponseEntity;
 
-    @Before
+    @BeforeEach
     public void setup() {
         when(clientCredentials.getAccessToken())
                 .thenReturn("BQBkcbGl9poui2Cp-_2S3P_n2gA1-ImfTqyI2SFzc8sKa7q0tKfcqipake2f46C4bZXp40kZnSus-Ajey4E");

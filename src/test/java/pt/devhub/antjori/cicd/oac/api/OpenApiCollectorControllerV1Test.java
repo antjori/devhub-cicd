@@ -1,32 +1,29 @@
 package pt.devhub.antjori.cicd.oac.api;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.ResponseEntity;
-
 import pt.devhub.antjori.cicd.oac.spotify.model.album.SpotifyAlbums;
 import pt.devhub.antjori.cicd.oac.spotify.model.artist.SpotifyArtists;
 import pt.devhub.antjori.cicd.oac.spotify.model.response.SpotifySearchResponse;
 import pt.devhub.antjori.cicd.oac.spotify.model.track.SpotifyTracks;
 import pt.devhub.antjori.cicd.oac.spotify.service.SpotifyService;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 /**
  * Test class for {@link OpenApiCollectorControllerV1} where will be depicted
  * the classe's unit tests.
  */
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class OpenApiCollectorControllerV1Test {
 
     @InjectMocks
@@ -34,11 +31,6 @@ public class OpenApiCollectorControllerV1Test {
 
     @Mock
     private SpotifyService spotifyService;
-
-    @Before
-    public void setup() {
-        MockitoAnnotations.initMocks(this);
-    }
 
     @Test
     public void testSearchSpotify() {
