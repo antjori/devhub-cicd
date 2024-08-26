@@ -37,7 +37,7 @@
 
         <!-- dependency versions -->
         <commons-lang3.version>3.10</commons-lang3.version>
-        <springfox.version>2.9.2</springfox.version>
+        <springfox.version>2.10.0</springfox.version>
     </properties>
 
     <inceptionYear>2018</inceptionYear>
